@@ -49,7 +49,7 @@ localparam SIG_OUT_LOAD_N = 0;          // \L_O
 
 /* Internal Regs */
 reg [2:0] stage;
-reg [16:0] control_signals; // a 15 bit wide register
+reg [14:0] control_signals; // a 15 bit wide register
 reg hlt_flag;
 reg done_load_reg;
 reg read_ui_in_reg;

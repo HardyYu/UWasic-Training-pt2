@@ -1,4 +1,4 @@
-alu (
+module alu (
     input  wire       clk,            // Clock signal (Rising edge) (needed for storing CF and ZF)
     input  wire       enable_output,  // Enable ALU output to the bus (ACTIVE-HIGH)
     input  wire [7:0] reg_a,          // Register A (8 bits)
