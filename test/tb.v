@@ -27,7 +27,7 @@ reg [7:0] uio_oe;
 `endif
 
 // Replace tt_um_example with your module name:
-tt_um_example user_project (
+tt_um_8_bit_cpu_top (
 // Include power ports for the Gate Level test:
 `ifdef GL_TEST
       .VPWR(VPWR),
