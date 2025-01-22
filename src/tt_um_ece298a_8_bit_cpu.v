@@ -14,6 +14,9 @@ module tt_um_ece298a_8_bit_cpu_top (
     input  wire       clk,          // clock
     input  wire       rst_n         // reset_n - low to reset
 );
+    wire internal_clk; 
+    assign internal_clk = clk;
+
     // Bus //
     wire [7:0] bus;                 // Bus (8-bit) (High impedance when not in use)
     wire outputting_to_bus;         // Signal to determine if something is outputting to the bus   
@@ -89,7 +92,7 @@ module tt_um_ece298a_8_bit_cpu_top (
     // Program Counter //
     ProgramCounter pc(
         .bus(bus[3:0]),         // Bus (lower 4 bits)
-        .clk(clk),              // Clock (Falling edge)
+        .clk(internal_clk),              // Clock (Falling edge)
         .clr_n(rst_n),          // Clear (ACTIVE-LOW)
         .lp(Lp),                // Load Program Counter (ACTIVE-HIGH)
         .cp(Cp),                // Increment Program Counter (ACTIVE-HIGH)
@@ -97,7 +100,7 @@ module tt_um_ece298a_8_bit_cpu_top (
     );
     
     control_block cb(
-        .clk(clk),                      // Clock
+        .clk(internal_clk),                      // Clock
         .resetn(rst_n),                 // Reset (ACTIVE-LOW)
         .opcode(opcode[3:0]),           // Opcode from the Instruction Register
         .out(control_signals[14:0]),    // Control Signals
@@ -111,7 +114,7 @@ module tt_um_ece298a_8_bit_cpu_top (
 
     // ALU //
     alu alu_object(
-        .clk(clk),              // Clock (Rising edge) (needed for storing CF and ZF)
+        .clk(internal_clk),              // Clock (Rising edge) (needed for storing CF and ZF)
         .enable_output(Eu),     // Enable ALU output to the bus (ACTIVE-HIGH)
         .reg_a(reg_a),          // Register A (8 bits)
         .reg_b(reg_b),          // Register B (8 bits)
@@ -124,7 +127,7 @@ module tt_um_ece298a_8_bit_cpu_top (
     
     // Accumulator Register //
     accumulator_register accumulator_object(
-        .clk(clk),              // Clock (Rising edge)
+        .clk(internal_clk),              // Clock (Rising edge)
         .bus(bus),              // Bus (8 bits)
         .load(nLa),             // Enable Accumulator Register load from bus (ACTIVE-LOW)
         .enable_output(Ea),     // Enable Accumulator Register output to the bus (ACTIVE-HIGH)
@@ -135,7 +138,7 @@ module tt_um_ece298a_8_bit_cpu_top (
 
     // Input and MAR Register //
     input_mar_register input_mar_register(
-        .clk(clk),              // Clock (Rising edge)
+        .clk(internal_clk),              // Clock (Rising edge)
         .n_load_data(nLmd),     // Enable loading of the MAR data from the bus (ACTIVE-LOW)
         .n_load_addr(nLma),     // Enable loading of the MAR address from the bus (ACTIVE-LOW)
         .bus(bus),              // Bus (8 bits)
@@ -145,7 +148,7 @@ module tt_um_ece298a_8_bit_cpu_top (
 
     // Instruction Register //
     instruction_register instruction_register(
-        .clk(clk),              // Clock (Rising edge)
+        .clk(internal_clk),              // Clock (Rising edge)
         .clear(~rst_n),         // Clear (ACTIVE-HIGH)
         .n_load(nLi),           // Enable Instruction Register load from bus (ACTIVE-LOW)
         .n_enable(nEi),         // Enable Instruction Register output to the bus (ACTIVE-LOW)
@@ -155,7 +158,7 @@ module tt_um_ece298a_8_bit_cpu_top (
     
     // B Register //
     register b_register(
-        .clk(clk),              // Clock (Rising edge)
+        .clk(internal_clk),              // Clock (Rising edge)
         .n_load(nLb),           // Enable B Register load from bus (ACTIVE-LOW)
         .bus(bus),              // Bus (8 bits)
         .value(reg_b)           // Register B (8 bits)
@@ -163,7 +166,7 @@ module tt_um_ece298a_8_bit_cpu_top (
     
     // Output Register //
     register output_register(
-        .clk(clk),              // Clock (Rising edge)
+        .clk(internal_clk),              // Clock (Rising edge)
         .n_load(nLo),           // Enable Output Register load from bus (ACTIVE-LOW)
         .bus(bus),              // Bus (8 bits)
         .value(uo_out)          // Output Register (8 bits) (Output to the UO_OUT)
@@ -178,7 +181,7 @@ module tt_um_ece298a_8_bit_cpu_top (
         .data_out(bus),             // Bus (8 bits)
         .lr_n(nLr),                 // enable the RAM load from the bus (ACTIVE-LOW)
         .ce_n(nCE),                 // enable the RAM output to the bus (ACTIVE-LOW)
-        .clk(clk),                  // Clock (Rising edge)
+        .clk(internal_clk),                  // Clock (Rising edge)
         .rst_n(1'b1)                // Reset (ACTIVE-LOW) (Never reset the RAM)
     );
     assign programming = uio_in[0];     // Programming mode signal (ACTIVE-HIGH) to the UIO input 0
