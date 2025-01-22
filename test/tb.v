@@ -19,6 +19,7 @@ reg ena;
 reg [7:0] uio_in;
 wire [7:0] uo_out;
 wire [7:0] uio_out;
+reg [7:0] uio_in;
 reg [7:0] uio_oe;
 `ifdef GL_TEST
   wire VPWR = 1'b1;
@@ -36,6 +37,7 @@ tt_um_ece298a_8_bit_cpu_top (
       .uo_out (uo_out),   // Dedicated outputs
       .uio_out(uio_out),  // IOs: Output path
       .uio_oe (uio_oe),   // IOs: Enable path (active high: 0=input, 1=output)
+      .uio_in(uio_in),
       .ena    (ena),      // enable - goes high when design is selected
       .clk    (clk),      // clock
       .rst_n  (rst_n)     // not reset

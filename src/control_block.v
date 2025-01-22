@@ -85,9 +85,9 @@ end
 // What is the difference between <= and = ...????
 /* Micro-Operation Logic */
 always @(negedge clk) begin
-    control_signals = 15'b000111111100011; // All signals are deasserted
-    done_load_reg = 0;
-    read_ui_in_reg = 0;
+    control_signals <= 15'b000111111100011; // All signals are deasserted
+    done_load_reg <= 0;
+    read_ui_in_reg <= 0;
     if (!resetn) begin           // Check if reset is asserted, if yes, init halt reg
       hlt_flag <= 0;
     end
