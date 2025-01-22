@@ -6,7 +6,7 @@
 `default_nettype none
 
 module control_block (
-    output wire clk,
+    input wire clk,
     input wire resetn,
     input wire [3:0] opcode,
     output wire [14: 0] out,    
