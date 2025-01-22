@@ -53,7 +53,6 @@ reg [14:0] control_signals; // a 15 bit wide register
 reg hlt_flag;
 reg done_load_reg;
 reg read_ui_in_reg;
-reg ready_reg;
 /* Micro-Operation Stages */
 parameter T0 = 0, T1 = 1, T2 = 2, T3 = 3, T4 = 4, T5 = 5; 
 
@@ -89,7 +88,6 @@ always @(negedge clk) begin
     control_signals = 15'b000111111100011; // All signals are deasserted
     done_load_reg = 0;
     read_ui_in_reg = 0;
-    ready_reg = 0;
     if (!resetn) begin           // Check if reset is asserted, if yes, init halt reg
       hlt_flag <= 0;
     end
@@ -98,7 +96,6 @@ always @(negedge clk) begin
         T0: begin
             control_signals[SIG_PC_EN] <= 1;
             control_signals[SIG_MAR_ADDR_LOAD_N] <= 0;
-            ready_reg <= 1;
         end 
         T1: begin
             control_signals[SIG_PC_INC] <= 1;
