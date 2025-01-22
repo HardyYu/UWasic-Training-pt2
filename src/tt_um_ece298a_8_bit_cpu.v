@@ -5,6 +5,10 @@
 `default_nettype none
 
 module tt_um_ece298a_8_bit_cpu_top (
+    `ifdef GL_TEST
+    input wire VPWR,
+    input wire VGND,
+    `endif
     input  wire [7:0] ui_in,        // Dedicated inputs
     output wire [7:0] uo_out,       // Dedicated outputs
     output wire [7:0] uio_out,      // IOs: Output path
