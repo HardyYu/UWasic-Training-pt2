@@ -10,7 +10,7 @@ module alu (
     input  wire       rst_n           // Reset (ACTIVE-LOW)
 );
   // ALU Internal signals //
-  internal wire carry_out; // Carry out from the 8-bit adder/subtractor
+  wire carry_out; // Carry out from the 8-bit adder/subtractor
   wire res_zero;  // Result is zero
   wire [7:0] sum; // Result of the 8-bit adder/subtractor
 
@@ -32,7 +32,7 @@ module alu (
     if (!rst_n) begin // Reset (ACTIVE-LOW)
       CF <= 1'b0; // Clear Carry Flag
       ZF <= 1'b0; // Clear Zero Flag
-        else end if (enable_output) begin  // Allow the flags to be updated only when the ALU output is enabled
+    end else if (enable_output) begin  // Allow the flags to be updated only when the ALU output is enabled
       CF <= carry_out;        // Carry Flag <= Carry out from the 8-bit adder/subtractor
       ZF <= res_zero;         // Zero Flag <= Result is zero
     end
