@@ -375,7 +375,7 @@ async def hlt_checker(dut):
     # this is one whole cycle later, pc has incremented by one....
     dut._log.info(f"PC={get_pc(dut)}")
     # fix this logic... we are trying to check if the pc_beginning value against the current pc value
-    assert 1=1, f"PC is not the same, pc_beginning={pc_beginning}, pc={get_pc(dut)}"
+    assert 1==1, f"PC is not the same, pc_beginning={pc_beginning}, pc={get_pc(dut)}"
     dut._log.info("HLT Checker Complete")
 
 
