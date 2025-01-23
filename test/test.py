@@ -373,9 +373,10 @@ async def hlt_checker(dut):
         await log_uio_out(dut)
         assert get_control_signal_array(dut) == LogicArray("000111111100011"), f"Control Signals are not correct, expected=000111111100011"
     # this is one whole cycle later, pc has incremented by one....
+    pc_after = get_pc(dut)
     dut._log.info(f"PC={get_pc(dut)}")
     # fix this logic... we are trying to check if the pc_beginning value against the current pc value
-    assert 1==1, f"PC is not the same, pc_beginning={pc_beginning}, pc={get_pc(dut)}"
+    assert pc_after == pc_beginning + 1, (f"PC is not the same, pc_beginning={pc_beginning}, pc={get_pc(dut)}")
     dut._log.info("HLT Checker Complete")
 
 
